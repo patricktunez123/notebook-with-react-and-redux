@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { toggleNote } from "../../redux/actions/notes.actions";
 
 const ImportantNotes = ({ notes, toggleNote }) => {
   return (
@@ -25,4 +27,7 @@ const ImportantNotes = ({ notes, toggleNote }) => {
   );
 };
 
-export default ImportantNotes;
+const mapStateToProps = (state) => ({
+  notes: state.notes,
+});
+export default connect(mapStateToProps, { toggleNote })(ImportantNotes);

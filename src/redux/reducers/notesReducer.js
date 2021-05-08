@@ -14,6 +14,19 @@ const notesReducer = (prevState = initialState, action) => {
         ...prevState,
         notes: [...prevState.notes, payload],
       };
+    case "TOGGLE_NOTE":
+      const newNotes = prevState.notes.slice();
+      const index = newNotes.findIndex((note) => note.id === payload);
+      const note = newNotes[index];
+      const newNote = {
+        ...note,
+        isImportant: !note.isImportant,
+      };
+      newNotes[index] = newNote;
+      return {
+        ...prevState,
+        notes: newNotes,
+      };
     default:
       return prevState;
   }
