@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Click here for the App's DEMO](https://notebook-psi.vercel.app/)
 
 ## Available Scripts
 
