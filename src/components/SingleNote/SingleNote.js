@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 const SingleNote = ({ notes, toggleNote }) => {
   return (
@@ -18,4 +19,6 @@ const SingleNote = ({ notes, toggleNote }) => {
   );
 };
 
-export default SingleNote;
+const mapStateToProps = (state) => ({ notes: state.notes });
+
+export default connect(mapStateToProps)(SingleNote);

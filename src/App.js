@@ -6,10 +6,6 @@ import ImportantNotes from "./components/ImportantNotes";
 function App() {
   const [notes, setNotes] = useState([]);
 
-  const createNote = (newNotes) => {
-    setNotes([...notes, newNotes]);
-  };
-
   const toggleNote = (id) => {
     const newNotes = notes.slice();
     const index = newNotes.findIndex((note) => note.id === id);
@@ -24,11 +20,11 @@ function App() {
 
   return (
     <div className="container">
-      <CreateNotes createNote={createNote} />
+      <CreateNotes />
       <hr />
       <ImportantNotes notes={notes} toggleNote={toggleNote} />
       <hr />
-      <AllNotes notes={notes} toggleNote={toggleNote} />
+      <AllNotes toggleNote={toggleNote} />
     </div>
   );
 }
