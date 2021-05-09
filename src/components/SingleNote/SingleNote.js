@@ -21,7 +21,7 @@ const SingleNote = ({ notes, toggleNote }) => {
 };
 
 const mapStateToProps = (state) => ({
-  notes: state.notes.notes,
+  notes: state.notesReducer.notes,
 });
 
 export default connect(mapStateToProps, { toggleNote })(SingleNote);

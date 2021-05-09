@@ -1,20 +1,20 @@
+import { notesActionTypes } from "../action-Types/actionTypes";
+
 const initialState = {
-  notes: [
-    { note: "this is the note one", id: 1, date: 20 / 20 / 20 },
-    { note: "this is the note two", id: 2, date: 20 / 20 / 20 },
-  ],
+  notes: [],
 };
 
 const notesReducer = (prevState = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case "ADD_NOTE":
+    case notesActionTypes.ADD_NOTE:
       return {
         ...prevState,
         notes: [...prevState.notes, payload],
       };
-    case "TOGGLE_NOTE":
+
+    case notesActionTypes.TOGGLE_NOTE:
       const newNotes = prevState.notes.slice();
       const index = newNotes.findIndex((note) => note.id === payload);
       const note = newNotes[index];
@@ -27,6 +27,13 @@ const notesReducer = (prevState = initialState, action) => {
         ...prevState,
         notes: newNotes,
       };
+
+    case notesActionTypes.GET_NOTES:
+      return {
+        ...prevState,
+        notes: payload,
+      };
+
     default:
       return prevState;
   }

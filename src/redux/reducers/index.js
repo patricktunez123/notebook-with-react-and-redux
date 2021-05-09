@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import notesReducer from "./notesReducer";
 
 const reducers = combineReducers({
-  notes: notesReducer,
+  notesReducer,
 });
 
 export default reducers;
