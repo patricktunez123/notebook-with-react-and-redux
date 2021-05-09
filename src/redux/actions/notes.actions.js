@@ -3,6 +3,10 @@ import { notesActionTypes } from "../action-Types/actionTypes";
 
 export const createNote = (data) => async (dispatch) => {
   try {
+    dispatch({
+      type: notesActionTypes.LOADING,
+    });
+
     await db.collection("notes").doc(data.id.toString()).set(data);
     dispatch({
       type: notesActionTypes.ADD_NOTE,
@@ -15,6 +19,10 @@ export const createNote = (data) => async (dispatch) => {
 
 export const toggleNote = (id) => async (dispatch) => {
   try {
+    dispatch({
+      type: notesActionTypes.LOADING,
+    });
+
     const snapshot = db.collection("notes").doc(id.toString());
     const data = (await snapshot.get()).data();
     await snapshot.update({
@@ -32,6 +40,10 @@ export const toggleNote = (id) => async (dispatch) => {
 
 export const getNotes = () => async (dispatch) => {
   try {
+    dispatch({
+      type: notesActionTypes.LOADING,
+    });
+
     const snapshot = await db.collection("notes").get();
     const notes = snapshot.docs.map((doc) => doc.data());
     dispatch({

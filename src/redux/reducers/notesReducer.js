@@ -2,16 +2,24 @@ import { notesActionTypes } from "../action-Types/actionTypes";
 
 const initialState = {
   notes: [],
+  loading: false,
 };
 
 const notesReducer = (prevState = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case notesActionTypes.LOADING:
+      return {
+        ...prevState,
+        loading: true,
+      };
+
     case notesActionTypes.ADD_NOTE:
       return {
         ...prevState,
         notes: [...prevState.notes, payload],
+        loading: false,
       };
 
     case notesActionTypes.TOGGLE_NOTE:
@@ -26,12 +34,14 @@ const notesReducer = (prevState = initialState, action) => {
       return {
         ...prevState,
         notes: newNotes,
+        loading: false,
       };
 
     case notesActionTypes.GET_NOTES:
       return {
         ...prevState,
         notes: payload,
+        loading: false,
       };
 
     default:

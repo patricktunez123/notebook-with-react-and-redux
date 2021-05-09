@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import AllNotes from "./components/AllNotes";
 import CreateNotes from "./components/CreateNotes";
 import ImportantNotes from "./components/ImportantNotes";
 import { getNotes } from "./redux/actions/notes.actions";
 
-function App() {
+function App({ loading }) {
   // store.dispatch(getNotes());
   const dispatch = useDispatch();
 
@@ -18,10 +18,29 @@ function App() {
       <CreateNotes />
       <hr />
       <ImportantNotes />
+      {loading && (
+        <div className="text-center">
+          <div
+            className="spinner-grow text-primary spinner-border-sm "
+            role="status"
+          />
+        </div>
+      )}
       <hr />
       <AllNotes />
+      {loading && (
+        <div className="text-center">
+          <div
+            className="spinner-border text-primary spinner-border-sm"
+            role="status"
+          />
+        </div>
+      )}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  loading: state.notesReducer.loading,
+});
+export default connect(mapStateToProps)(App);
