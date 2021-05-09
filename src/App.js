@@ -1,32 +1,46 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
 import AllNotes from "./components/AllNotes";
 import CreateNotes from "./components/CreateNotes";
 import ImportantNotes from "./components/ImportantNotes";
+import { getNotes } from "./redux/actions/notes.actions";
 
-function App() {
-  const [notes, setNotes] = useState([]);
+function App({ loading }) {
+  // store.dispatch(getNotes());
+  const dispatch = useDispatch();
 
-  const toggleNote = (id) => {
-    const newNotes = notes.slice();
-    const index = newNotes.findIndex((note) => note.id === id);
-    const note = newNotes[index];
-    const newNote = {
-      ...note,
-      isImportant: !note.isImportant,
-    };
-    newNotes[index] = newNote;
-    setNotes(newNotes);
-  };
+  useEffect(() => {
+    dispatch(getNotes());
+  }, [dispatch]);
 
   return (
     <div className="container">
       <CreateNotes />
       <hr />
-      <ImportantNotes notes={notes} toggleNote={toggleNote} />
+      <ImportantNotes />
+      {loading && (
+        <div className="text-center">
+          <div
+            className="spinner-grow text-primary spinner-border-sm "
+            role="status"
+          />
+        </div>
+      )}
       <hr />
-      <AllNotes toggleNote={toggleNote} />
+      <AllNotes />
+      {loading && (
+        <div className="text-center">
+          <div
+            className="spinner-border text-primary spinner-border-sm"
+            role="status"
+          />
+        </div>
+      )}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  loading: state.notesReducer.loading,
+});
+export default connect(mapStateToProps)(App);
