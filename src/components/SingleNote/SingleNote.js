@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import { toggleNote } from "../../redux/actions/notes.actions";
 
-const SingleNote = ({ notes, toggleNote }) => {
+const SingleNote = ({ notes, toggleNote, loading }) => {
   return (
     <div className="row">
       {notes.map((note) => (
@@ -8,9 +10,15 @@ const SingleNote = ({ notes, toggleNote }) => {
           <div className="card mb-3">
             <div className="card-header">{note.date}</div>
             <div className="card-body">{note.note}</div>
-            <button onClick={() => toggleNote(note.id)} className="btn">
-              {note.isImportant ? "Remove from important" : "Add to important"}
-            </button>
+            {loading ? (
+              <button className="btn">Loading...</button>
+            ) : (
+              <button onClick={() => toggleNote(note.id)} className="btn">
+                {note.isImportant
+                  ? "Remove from important"
+                  : "Add to important"}
+              </button>
+            )}
           </div>
         </div>
       ))}
@@ -18,4 +26,9 @@ const SingleNote = ({ notes, toggleNote }) => {
   );
 };
 
-export default SingleNote;
+const mapStateToProps = (state) => ({
+  notes: state.notesReducer.notes,
+  loading: state.notesReducer.loading,
+});
+
+export default connect(mapStateToProps, { toggleNote })(SingleNote);
