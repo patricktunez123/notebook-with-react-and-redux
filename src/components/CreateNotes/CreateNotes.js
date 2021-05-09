@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import "./_createNotes.scss";
 
 const CreateNotes = ({ createNote }) => {
@@ -13,6 +14,7 @@ const CreateNotes = ({ createNote }) => {
       isImportant: false,
     };
 
+    // store.dispatch({ type: "ADD_NOTE", payload: data });
     createNote(data);
   };
 
@@ -29,4 +31,15 @@ const CreateNotes = ({ createNote }) => {
   );
 };
 
-export default CreateNotes;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createNote: (data) =>
+      dispatch({
+        type: "ADD_NOTE",
+        payload: data,
+      }),
+  };
+};
+
+// if we do not want to read any data from store we pass only null. (here we only need to update store)
+export default connect(null, mapDispatchToProps)(CreateNotes);
