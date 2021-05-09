@@ -1,8 +1,16 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleNote } from "../../redux/actions/notes.actions";
 
-const SingleNote = ({ notes, toggleNote, loading }) => {
+const SingleNote = () => {
+  const notes = useSelector((state) => state.notesReducer.notes);
+  const loading = useSelector((state) => state.notesReducer.loading);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(toggleNote);
+  }, [dispatch]);
+
   return (
     <div className="row">
       {notes.map((note) => (
@@ -26,9 +34,13 @@ const SingleNote = ({ notes, toggleNote, loading }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  notes: state.notesReducer.notes,
-  loading: state.notesReducer.loading,
-});
+//let's now use hooks
 
-export default connect(mapStateToProps, { toggleNote })(SingleNote);
+// const mapStateToProps = (state) => ({
+//   notes: state.notesReducer.notes,
+//   loading: state.notesReducer.loading,
+// });
+
+// export default connect(mapStateToProps, { toggleNote })(SingleNote);
+
+export default SingleNote;

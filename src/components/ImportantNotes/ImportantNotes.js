@@ -1,8 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleNote } from "../../redux/actions/notes.actions";
 
-const ImportantNotes = ({ notes, toggleNote }) => {
+const ImportantNotes = () => {
+  const notes = useSelector((state) => state.notesReducer.notes);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(toggleNote());
+  }, [dispatch]);
+
   return (
     <div className="importantNotes">
       <h5>Important notes</h5>
@@ -27,7 +34,9 @@ const ImportantNotes = ({ notes, toggleNote }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  notes: state.notesReducer.notes,
-});
-export default connect(mapStateToProps, { toggleNote })(ImportantNotes);
+// const mapStateToProps = (state) => ({
+//   notes: state.notesReducer.notes,
+// });
+// export default connect(mapStateToProps, { toggleNote })(ImportantNotes);
+
+export default ImportantNotes;

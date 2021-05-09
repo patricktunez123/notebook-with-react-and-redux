@@ -1,12 +1,13 @@
 import { useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import AllNotes from "./components/AllNotes";
 import CreateNotes from "./components/CreateNotes";
 import ImportantNotes from "./components/ImportantNotes";
 import { getNotes } from "./redux/actions/notes.actions";
 
-function App({ loading }) {
+function App() {
   // store.dispatch(getNotes());
+  const loading = useSelector((state) => state.notesReducer.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,7 +41,9 @@ function App({ loading }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  loading: state.notesReducer.loading,
-});
-export default connect(mapStateToProps)(App);
+// const mapStateToProps = (state) => ({
+//   loading: state.notesReducer.loading,
+// });
+// export default connect(mapStateToProps)(App);
+
+export default App;

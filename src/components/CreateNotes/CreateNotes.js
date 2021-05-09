@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createNote } from "../../redux/actions/notes.actions";
 import "./_createNotes.scss";
 
-const CreateNotes = ({ createNote }) => {
+const CreateNotes = () => {
   const [note, setNote] = useState();
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,7 +17,7 @@ const CreateNotes = ({ createNote }) => {
     };
 
     // store.dispatch({ type: "ADD_NOTE", payload: data });
-    createNote(data);
+    dispatch(createNote(data));
   };
 
   return (
@@ -47,4 +48,7 @@ const CreateNotes = ({ createNote }) => {
 //   dispatch({ type: "ADD_NOTE", payload: data });
 
 // if we do not want to read any data from store we pass only null. (here we only need to update store)
-export default connect(null, { createNote })(CreateNotes);
+// export default connect(null, { createNote })(CreateNotes);
+
+//let's use hooks
+export default CreateNotes;
